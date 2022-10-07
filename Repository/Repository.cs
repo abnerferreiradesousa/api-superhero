@@ -36,13 +36,14 @@ namespace Blog.API.Repository
             return heroes;
         }
 
-        public async Task<List<SuperHero>> UpdateSuperHero(SuperHero request, int id)
+        public async Task<List<SuperHero>> UpdateSuperHero(SuperHero request)
         {
-            var hero = await FindSpecificSuperHero(id);
+            var hero = await FindSpecificSuperHero(request.Id);
 
             hero.Name = request.Name;
             hero.FirstName = request.FirstName;
             hero.LastName = request.LastName;
+            hero.Place = request.Place;
 
             await _context.SaveChangesAsync();
 
@@ -59,6 +60,7 @@ namespace Blog.API.Repository
             await _context.SaveChangesAsync();
 
             var heroes = await FindAllSuperHero();
-            return heroes;        }
+            return heroes;        
+        }
     }
 }

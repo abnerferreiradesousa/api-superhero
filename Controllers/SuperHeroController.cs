@@ -68,15 +68,15 @@ namespace Blog.API.Controllers
             return Ok(heroListCreated);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<List<SuperHero>>> UpdateSuperHero(SuperHero request, int id)
+        [HttpPut]
+        public async Task<ActionResult<List<SuperHero>>> UpdateSuperHero(SuperHero request)
         {
-            var hero = await FindSpecificSuperHero(id);
+            var hero = await FindSpecificSuperHero(request.Id);
             
             if(hero == null)
                 return BadRequest("Hero not found");
 
-            var heroesListUpdated = await _repository.UpdateSuperHero(request, id);
+            var heroesListUpdated = await _repository.UpdateSuperHero(request);
             return Ok(heroesListUpdated);
         }
 
